@@ -32,12 +32,12 @@ export function Providers(props: {children: ReactNode; initialState?: State}) {
         <WagmiProvider config={config} initialState={props.initialState}>
             <QueryClientProvider client={queryClient}>
                 <OnchainKitProvider
-                    apiKey={process.env.NEXT_PUBLIC_CDP_API_KEY}
+                    apiKey="uXjNyHF9eDspiEz5B7jiTsZitrI2IjNB"
                     chain={baseSepolia}
                     config={{
                         appearance: {
                             mode: "auto",
-                            theme: "base",
+                            theme: "default",
                         },
                     }}
                 >

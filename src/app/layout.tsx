@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="bg-background dark">
+            <body className="flex flex-col items-center w-full bg-background dark">
                 <Providers>{children}</Providers>
             </body>
         </html>
