@@ -29,7 +29,7 @@ const Payment: React.FC = () => {
             <Checkout
                 chargeHandler={chargeHandler}
                 onStatus={handleStatusChange}
-                // productId="11406fec-7737-494f-adf4-f2ffb8f198f6"
+                productId="11406fec-7737-494f-adf4-f2ffb8f198f6"
             >
                 <CheckoutButton text="Make a payment" coinbaseBranded />
                 {/* <CheckoutStatus /> */}

@@ -1,9 +1,11 @@
 import Payment from "./Payment";
+import Swap from "./Swap";
 
 const Consumer: React.FC = () => {
     return (
-        <div>
+        <div className="flex gap-[24px] md:flex-row items-center">
             <Payment />
+            <Swap />
         </div>
     );
 };
