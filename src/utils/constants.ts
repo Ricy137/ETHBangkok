@@ -1,3 +1,4 @@
+import { ISignSchema } from "@/types/signing";
 import { SchemaItem } from "@ethsign/sp-sdk/dist/types";
 
 export const FakeMerchant = "0x2E7A81e310ef354005fC125734665Ab691e1577B";
@@ -13,6 +14,9 @@ export const schema: SchemaItem[] = [
         name: "amount", type: "string"
     },
     {
+        name: "merchantAddress", type: "string"
+    },
+    {
         name: "creatorAddress", type: "string"
     },
     {
@@ -23,8 +27,10 @@ export const schema: SchemaItem[] = [
     },
     {
         name: "tokens", type: "string"
-    },
-    {
-        name: "amount", type: "string"
     }
-] 
+]
+
+export const schemaWithLabels = schema.map((field) => ({
+    ...field,
+    label: field.name.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()),
+})) as ISignSchema[]

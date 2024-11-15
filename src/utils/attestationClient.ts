@@ -3,16 +3,12 @@ import {
     SpMode,
     EvmChains
 } from "@ethsign/sp-sdk";
-import { privateKeyToAccount } from "viem/accounts";
-import { Hex } from 'viem';
-import { schema } from "@/utils/constants";
+import {FakeMerchant, schema} from "@/utils/constants";
 
 const client = new SignProtocolClient(
     SpMode.OnChain,
     {
-        account: privateKeyToAccount(
-            process.env?.NEXT_PUBLIC_DEV_PUBLIC_KEY as Hex
-        ),
+        account: FakeMerchant,
         chain: EvmChains.baseSepolia,
     }
 );
@@ -22,4 +18,19 @@ export const signSchema = async (schemaName: string) => {
         name: schemaName,
         data: schema
     })
+}
+
+export const attestSchema = async (
+    schemaId: string,
+    contractDetails: string,
+    signer: string
+) => {
+    const res = await client.createAttestation({
+        schemaId: schemaId,
+        data: {
+            contractDetails,
+            signer
+        },
+        indexingValue: signer.toLowerCase()
+    });
 }
