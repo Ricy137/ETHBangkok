@@ -7,7 +7,20 @@ export interface IAttestationSchema {
     merchId: string
 }
 
+export interface ISignSchema {
+    name: string;
+    type: string;
+    label?: string
+    display?: boolean
+}
+
 export interface ISignSchemaResponse {
     schemaId: string;
-    txHash: string;
+    txHash: Hex | string;
+}
+
+export interface IAttestationResponse {
+    attestationId: string,
+    txHash: Hex | string,
+    indexingValue: string
 }
