@@ -1,9 +1,9 @@
-import {FakeMerchant, FakeReferrer} from "@/utils/constants";
+import Payment from "./Payment";
 
 const Consumer: React.FC = () => {
     return (
         <div>
-            <h1>Consumer</h1>
+            <Payment />
         </div>
     );
 };
