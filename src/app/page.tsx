@@ -13,7 +13,6 @@ import {
     Name,
     Identity,
     EthBalance,
-    getAddress,
 } from "@coinbase/onchainkit/identity";
 
 export default function App() {
