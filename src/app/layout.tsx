@@ -19,7 +19,7 @@ export default function RootLayout({
             <body className="flex flex-col items-center w-full bg-background dark">
                 <Providers>
                     <Navbar />
-                    <div className="mt-[100px]">{children}</div>
+                    <div className="mt-[70px]">{children}</div>
                 </Providers>
             </body>
         </html>

@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
     return (
         <nav
             className={cx(
-                "fixed flex flex-row items-center justify-center w-full h-[70px] bg-[#b1b4f8]"
+                "fixed flex flex-row items-center justify-center w-full h-[70px] bg-[#b1b4f8] z-[100]"
             )}
         >
             <Mobile

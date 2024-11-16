@@ -1,53 +1,26 @@
 "use client";
-
-import {
-    ConnectWallet,
-    Wallet,
-    WalletDropdown,
-    WalletDropdownLink,
-    WalletDropdownDisconnect,
-} from "@coinbase/onchainkit/wallet";
-import {
-    Address,
-    Avatar,
-    Name,
-    Identity,
-    EthBalance,
-} from "@coinbase/onchainkit/identity";
+import Image from "next/image";
+import Link from "next/link";
+import BannerImg from "@/assets/banner.png";
+import TextImg from "@/assets/text.png";
 
 export default function App() {
     return (
-        <div className="flex flex-col min-h-screen font-sans dark:bg-background dark:text-white bg-white text-black">
-            <header className="pt-4 pr-4">
-                <div className="flex justify-end">
-                    <div className="wallet-container">
-                        <Wallet>
-                            <ConnectWallet>
-                                <Avatar className="h-6 w-6" />
-                                <Name />
-                            </ConnectWallet>
-                            <WalletDropdown>
-                                <Identity
-                                    className="px-4 pt-3 pb-2"
-                                    hasCopyAddressOnClick
-                                >
-                                    <Avatar />
-                                    <Name />
-                                    <Address />
-                                    <EthBalance />
-                                </Identity>
-                                <WalletDropdownLink
-                                    icon="wallet"
-                                    href="https://keys.coinbase.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Wallet
-                                </WalletDropdownLink>
-                                <WalletDropdownDisconnect />
-                            </WalletDropdown>
-                        </Wallet>
-                    </div>
+        <div className="flex flex-col min-h-screen w-full text-black">
+            <header className="relative pt-2 pr-4 grid grid-cols-[3fr_1fr] justify-items-center items-center">
+                <Image
+                    src={BannerImg}
+                    alt=""
+                    className="relative left-[-10%] w-[85%] z-0"
+                />
+                <div className="relative flex flex-col gap-24px">
+                    <Image src={TextImg} alt="" />
+                    <Link
+                        href="merchant"
+                        className="cursor-pointer ock-bg-primary active:bg-[var(--ock-bg-primary-active)] hover:bg-[var(--ock-bg-primary-hover)] ock-border-radius ock-font-family font-semibold leading-normal ock-text-inverse inline-flex min-w-[153px] items-center justify-center px-4 py-3"
+                    >
+                        Here
+                    </Link>
                 </div>
             </header>
         </div>
