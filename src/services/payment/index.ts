@@ -1,4 +1,5 @@
 import {useCallback} from "react";
+import {Hex, parseEther} from "viem";
 import {COMMERCE_API_URL, COINBASE_COMMERCE_API_KEY} from "@/utils/constants";
 
 export type Price = {
@@ -11,6 +12,13 @@ export type ChargeDetails = {
     description?: string;
     pricing_type?: string;
     local_price?: Price;
+};
+
+export type CallDetails = {
+    reciptAddr: Hex;
+    referralAddr: Hex;
+    percent: string;
+    totalAmount: string;
 };
 
 export const useCreatePayment = () => {
@@ -38,4 +46,26 @@ export const useCreatePayment = () => {
     }, []);
 
     return createPayment;
+};
+
+export const useCreateCalls = () => {
+    const createCalls = useCallback(
+        ({reciptAddr, referralAddr, percent, totalAmount}: CallDetails) => {
+            const amount = parseFloat(totalAmount);
+            const percentNumb = parseInt(percent);
+            const merchantProfit = (amount * percentNumb) / 100;
+            return [
+                {
+                    to: reciptAddr,
+                    value: parseEther(merchantProfit.toString()),
+                },
+                {
+                    to: referralAddr,
+                    value: parseEther((amount - merchantProfit).toString()),
+                },
+            ];
+        },
+        []
+    );
+    return createCalls;
 };
