@@ -11,7 +11,7 @@ import {v4 as uuidV4} from "uuid";
 import {useAccount} from "wagmi";
 import {Hex} from "viem";
 import {useModal} from "@/components/Modal";
-import ResultModal from "./resultModal";
+import ResultModal from "./ResultModal";
 
 const Merchant: FC = () => {
     const [schemaId, setSchemaId] = useAtom(schemaIdAtom);
