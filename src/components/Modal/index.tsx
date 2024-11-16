@@ -98,7 +98,7 @@ const ModalRender: React.FC = () => {
                         >
                             <div
                                 className={cx(
-                                    "p-[27px] min-w-[311px] rounded-[12px] border-[1px] border-solid border-[#ffffff] bg-[rgba(255,255,255,0.12)] backdrop-blur-[103px]",
+                                    "p-[27px] max-w-[600px] min-w-[311px] rounded-[12px] border-[1px] border-solid border-[#ffffff] bg-[rgba(255,255,255,0.12)] backdrop-blur-[103px]",
                                     modal?.wrapperClass
                                 )}
                             >

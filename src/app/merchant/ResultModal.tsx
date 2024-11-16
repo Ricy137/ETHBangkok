@@ -1,8 +1,7 @@
 import {useAtomValue} from "jotai";
 //TODO: Not a good idea
-import {schemaIdAtom, manageFormAtom} from "@/services/management";
+import {manageFormAtom} from "@/services/management";
 const ResultModal: React.FC = () => {
-    const schemaId = useAtomValue(schemaIdAtom);
     const manageFormData = useAtomValue(manageFormAtom);
 
     return (
@@ -14,7 +13,6 @@ const ResultModal: React.FC = () => {
                 {manageFormData?.totalAmount}&percent={manageFormData?.percent}
                 &productId={manageFormData?.productId}
             </div>
-            <div>http://localhost:3000/verify?schemaId={schemaId}</div>
         </div>
     );
 };

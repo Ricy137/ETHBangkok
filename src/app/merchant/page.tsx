@@ -1,7 +1,7 @@
 "use client";
 import {useEffect, FC} from "react";
 import {useAtom, useSetAtom} from "jotai";
-import { useAttestationClient } from "@/hooks/useAttestationClient";
+import {useAttestationClient} from "@/hooks/useAttestationClient";
 import Input from "@/components/Input";
 import {WrapperCard} from "@/components/Card";
 import {schemaWithLabels} from "@/utils/constants";
@@ -23,19 +23,21 @@ const Merchant: FC = () => {
         content: <ResultModal />,
     });
 
-    const {
-        signSchema,
-        attestSchema,
-    } = useAttestationClient();
+    const {signSchema, attestSchema} = useAttestationClient();
 
-    // useEffect(() => {
-    //     const sign = async () => {
-    //         const res = await signSchema("ETHBKK_SCHEMA_" + new Date().getTime());
-    //         setSchemaId((res as any).schemaId);
-    //     };
+    useEffect(() => {
+        const sign = async () => {
+            // TODO: Test
+            // const res = await signSchema(
+            //     "ETHBKK_SCHEMA_" + new Date().getTime()
+            // );
+            // setSchemaId((res as any).schemaId);
+            setSchemaId("testSchemaId");
+        };
+        if (!account) return;
 
-    //     sign();
-    // }, [account]);
+        sign();
+    }, [account]);
 
     const handleSubmit = async (formData: FormData) => {
         if (typeof window === undefined) return;
@@ -57,9 +59,10 @@ const Merchant: FC = () => {
             totalAmount: formData.get("amount") as string,
             percent: formData.get("splitPercentage") as string,
         });
+        // TODO: Test
         // const res = await attestSchema(
         //     schemaId,
-        //     data,
+        //     JSON.stringify(payload),
         //     merchantAddress as string
         // );
         showModal();
