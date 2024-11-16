@@ -100,12 +100,12 @@ const Navbar: React.FC = () => {
                             to={"/merchant"}
                             id="merchant-nav"
                         />
-                        <NavItem
+                        {/* <NavItem
                             title="Checkout"
                             curPath={pathName}
                             to={"/checkout"}
                             id="checkout-nav"
-                        />
+                        /> */}
                     </div>
                 </div>
                 <div className="wallet-container">

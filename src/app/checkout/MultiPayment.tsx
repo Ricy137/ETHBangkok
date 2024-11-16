@@ -10,11 +10,23 @@ import {
     TransactionToastIcon,
     TransactionToastLabel,
 } from "@coinbase/onchainkit/transaction";
+import {Hex} from "viem";
 import {baseSepolia} from "wagmi/chains";
-import {FakeMerchant, FakeReferrer, FakePercent} from "@/utils/constants";
 import {useCreateCalls} from "@/services/payment";
 
-const MultiPayment: React.FC = () => {
+interface MultiPaymentProps {
+    reciptAddr: string;
+    referralAddr: string;
+    percent: string;
+    totalAmount: string;
+}
+
+const MultiPayment: React.FC<MultiPaymentProps> = ({
+    reciptAddr,
+    referralAddr,
+    percent,
+    totalAmount,
+}) => {
     const createCalls = useCreateCalls();
 
     return (
@@ -22,10 +34,10 @@ const MultiPayment: React.FC = () => {
             <Transaction
                 chainId={baseSepolia.id}
                 calls={createCalls({
-                    reciptAddr: FakeMerchant,
-                    referralAddr: FakeReferrer,
-                    percent: FakePercent,
-                    totalAmount: "0.01",
+                    reciptAddr: reciptAddr as Hex,
+                    referralAddr: referralAddr as Hex,
+                    percent,
+                    totalAmount,
                 })}
             >
                 <TransactionButton text="Make the payment" />
