@@ -27,7 +27,10 @@ export const schema: SchemaItem[] = [
     },
     {
         name: "token", type: "string"
-    }
+    },
+    {
+        name: "productId", type: "string"
+    },
 ]
 
 export const schemaWithLabels = schema.map((field) => ({
