@@ -8,7 +8,9 @@ import {
 import { schema } from "@/utils/constants";
 import { Hex } from "viem";
 import { useAccount } from "wagmi";
+import { signMessage } from '@wagmi/core'
 import { privateKeyToAccount } from "viem/accounts";
+import { config } from "@/modules/Providers";
 
 
 export const useAttestationClient = () => {
@@ -25,13 +27,15 @@ export const useAttestationClient = () => {
         return client;
     };
     
-    const signSchema = async (schemaName: string) => {
-         const res = getClient()?.createSchema({
-            name: schemaName,
-            data: schema,
+    const signSchema = async (payload: string) => {
+        //  const res = getClient()?.createSchema({
+        //     name: schemaName,
+        //     data: schema,
+        // });
+        const res = signMessage(config, {
+            account: account.address,
+            message: payload
         });
-
-        console.log(res);   
     
         return res;
     };
@@ -41,11 +45,10 @@ export const useAttestationClient = () => {
         payload: string,
         signer: string
     ) => {
-        const data = JSON.parse(payload);
-    
+
         return getClient()?.createAttestation({
             schemaId: schemaId,
-            data,
+            data: JSON.parse(payload),
             indexingValue: signer.toLowerCase(),
         });
     };

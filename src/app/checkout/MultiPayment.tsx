@@ -11,7 +11,7 @@ import {
     TransactionToastLabel,
 } from "@coinbase/onchainkit/transaction";
 import {Hex} from "viem";
-import {baseSepolia} from "wagmi/chains";
+import {baseSepolia, scrollSepolia} from "wagmi/chains";
 import {useCreateCalls} from "@/services/payment";
 
 interface MultiPaymentProps {

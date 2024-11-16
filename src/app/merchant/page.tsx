@@ -12,6 +12,7 @@ import {useAccount} from "wagmi";
 import {Hex} from "viem";
 import {useModal} from "@/components/Modal";
 import ResultModal from "./ResultModal";
+import { sign } from "crypto";
 
 const Merchant: FC = () => {
     const [schemaId, setSchemaId] = useAtom(schemaIdAtom);
@@ -27,15 +28,14 @@ const Merchant: FC = () => {
         attestSchema,
     } = useAttestationClient();
 
-    useEffect(() => {
-        const sign = async () => {
-            const res = await signSchema("ETHBKK_SCHEMA_" + new Date().getTime());
-            setSchemaId((res as any).schemaId);
-        };
-        if (!account) return;
+    // useEffect(() => {
+    //     const sign = async () => {
+    //         const res = await signSchema("ETHBKK_SCHEMA_" + new Date().getTime());
+    //         setSchemaId((res as any).schemaId);
+    //     };
 
-        sign();
-    }, [account]);
+    //     sign();
+    // }, [account]);
 
     const handleSubmit = async (formData: FormData) => {
         if (typeof window === undefined) return;
@@ -49,6 +49,7 @@ const Merchant: FC = () => {
             merchId: uuidV4(),
             token: "USDC",
         };
+        const data = await signSchema(JSON.stringify(payload));
         //TODO: Not a good practice for Modal
         setManageFormData({
             merchantAddr: merchantAddress as string,
@@ -56,11 +57,11 @@ const Merchant: FC = () => {
             totalAmount: formData.get("amount") as string,
             percent: formData.get("splitPercentage") as string,
         });
-        const res = await attestSchema(
-            schemaId,
-            JSON.stringify(payload),
-            merchantAddress as string
-        );
+        // const res = await attestSchema(
+        //     schemaId,
+        //     data,
+        //     merchantAddress as string
+        // );
         showModal();
     };
 
