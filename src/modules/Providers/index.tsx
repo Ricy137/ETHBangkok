@@ -1,5 +1,5 @@
 "use client";
-
+import {Provider as JotaiProvider} from "jotai";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {baseSepolia} from "wagmi/chains";
 import {http, cookieStorage, createConfig, createStorage} from "wagmi";
@@ -29,21 +29,23 @@ export function Providers(props: {children: ReactNode; initialState?: State}) {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
-        <WagmiProvider config={config} initialState={props.initialState}>
-            <QueryClientProvider client={queryClient}>
-                <OnchainKitProvider
-                    apiKey="uXjNyHF9eDspiEz5B7jiTsZitrI2IjNB"
-                    chain={baseSepolia}
-                    config={{
-                        appearance: {
-                            mode: "auto",
-                            theme: "default",
-                        },
-                    }}
-                >
-                    {props.children}
-                </OnchainKitProvider>
-            </QueryClientProvider>
-        </WagmiProvider>
+        <JotaiProvider>
+            <WagmiProvider config={config} initialState={props.initialState}>
+                <QueryClientProvider client={queryClient}>
+                    <OnchainKitProvider
+                        apiKey="uXjNyHF9eDspiEz5B7jiTsZitrI2IjNB"
+                        chain={baseSepolia}
+                        config={{
+                            appearance: {
+                                mode: "auto",
+                                theme: "default",
+                            },
+                        }}
+                    >
+                        {props.children}
+                    </OnchainKitProvider>
+                </QueryClientProvider>
+            </WagmiProvider>
+        </JotaiProvider>
     );
 }

@@ -3,6 +3,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {Providers} from "@/modules/Providers";
 import Navbar from "@/modules/NavBar";
+import ModalRender from "@/components/Modal";
 
 export const metadata: Metadata = {
     title: "ETHBangkok",
@@ -19,6 +20,7 @@ export default function RootLayout({
             <body className="flex flex-col items-center w-full bg-background dark">
                 <Providers>
                     <Navbar />
+                    <ModalRender />
                     <div className="mt-[70px]">{children}</div>
                 </Providers>
             </body>

@@ -1,25 +1,21 @@
-import {
-    SpMode,
-    EvmChains,
-    SignProtocolClient,
-} from "@ethsign/sp-sdk";
-import { schema } from "@/utils/constants";
+import {SpMode, EvmChains, SignProtocolClient} from "@ethsign/sp-sdk";
+import {schema} from "@/utils/constants";
 
-
-const client = new SignProtocolClient(
-    SpMode.OnChain,
-    {
+const getClient = () => {
+    if (typeof window === undefined) return;
+    return new SignProtocolClient(SpMode.OnChain, {
         account: undefined,
         chain: EvmChains.baseSepolia,
-    }
-);
+    });
+};
 
 export const signSchema = async (schemaName: string) => {
-    return await client.createSchema({
+    // if(window===)
+    return await getClient()?.createSchema({
         name: schemaName,
-        data: schema
-    })
-}
+        data: schema,
+    });
+};
 
 export const attestSchema = async (
     schemaId: string,
@@ -28,9 +24,9 @@ export const attestSchema = async (
 ) => {
     const data = JSON.parse(payload);
 
-    return await client.createAttestation({
+    return await getClient()?.createAttestation({
         schemaId: schemaId,
         data,
-        indexingValue: signer.toLowerCase()
+        indexingValue: signer.toLowerCase(),
     });
-}
+};
