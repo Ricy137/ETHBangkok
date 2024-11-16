@@ -1,6 +1,11 @@
 import {useCallback} from "react";
-import {Hex, parseEther} from "viem";
-import {COMMERCE_API_URL, COINBASE_COMMERCE_API_KEY} from "@/utils/constants";
+import {Hex, parseUnits, encodeFunctionData} from "viem";
+import {
+    COMMERCE_API_URL,
+    COINBASE_COMMERCE_API_KEY,
+    usdcTestnetAddr,
+} from "@/utils/constants";
+import {usdcABI} from "@/utils/abis/usdcABI";
 
 export type Price = {
     amount: string;
@@ -56,16 +61,24 @@ export const useCreateCalls = () => {
             const merchantProfit = (amount * percentNumb) / 100;
             return [
                 {
-                    to: reciptAddr,
-                    value: parseEther(merchantProfit.toString()),
+                    to: usdcTestnetAddr as Hex,
+                    data: getEncodeData(reciptAddr, merchantProfit),
                 },
                 {
-                    to: referralAddr,
-                    value: parseEther((amount - merchantProfit).toString()),
+                    to: usdcTestnetAddr as Hex,
+                    data: getEncodeData(referralAddr, amount - merchantProfit),
                 },
             ];
         },
         []
     );
     return createCalls;
+};
+
+export const getEncodeData = (receiver: Hex, amount: number) => {
+    return encodeFunctionData({
+        abi: usdcABI,
+        functionName: "transfer",
+        args: [receiver, parseUnits(amount.toString(), 6)],
+    });
 };
