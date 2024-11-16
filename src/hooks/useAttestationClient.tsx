@@ -41,13 +41,12 @@ export const useAttestationClient = () => {
     };
     
     const attestSchema = async (
-        schemaId: string,
         payload: string,
         signer: string
     ) => {
 
         return getClient()?.createAttestation({
-            schemaId: schemaId,
+            schemaId: "SPS_TGVj7wO0St5qhpa1Q5jwj",
             data: JSON.parse(payload),
             indexingValue: signer.toLowerCase(),
         });
