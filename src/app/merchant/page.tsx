@@ -15,18 +15,17 @@ import {Hex} from "viem";
 const Merchant: FC = () => {
     const [schemaId, setSchemaId] = useAtom(schemaIdAtom);
     const setManageFormData = useSetAtom(manageFormAtom);
-    if (typeof window === undefined) return <></>;
     const account = useAccount();
 
     useEffect(() => {
-        if (typeof window === undefined) return;
         const sign = async () => {
-            if (typeof window === undefined) return;
-            const res = await signSchema(account.address + "_ETHBKK_SCHEMA");
+            const res = await signSchema("ETHBKK_SCHEMA");
             setSchemaId((res as any).schemaId);
         };
+        if (!account) return;
+
         sign();
-    }, []);
+    }, [account]);
 
     const handleSubmit = async (formData: FormData) => {
         if (window === undefined) return;
@@ -36,6 +35,7 @@ const Merchant: FC = () => {
             merchantAddress,
             creatorAddress: formData.get("creatorAddress"),
             splitPercentage: formData.get("splitPercentage"),
+            productId: formData.get("productId"),
             merchId: uuidV4(),
             token: "USDC",
         };
