@@ -1,12 +1,11 @@
 "use client";
 import {useEffect, FC} from "react";
 import {useAtom, useSetAtom} from "jotai";
-import {signSchema} from "@/utils/attestationClient";
+import { useAttestationClient } from "@/hooks/useAttestationClient";
 import Input from "@/components/Input";
 import {WrapperCard} from "@/components/Card";
 import {schemaWithLabels} from "@/utils/constants";
 import Button from "@/components/Button";
-import {attestSchema} from "@/utils/attestationClient";
 import {schemaIdAtom, manageFormAtom} from "@/services/management";
 import {v4 as uuidV4} from "uuid";
 import {useAccount} from "wagmi";
@@ -23,15 +22,20 @@ const Merchant: FC = () => {
         content: <ResultModal />,
     });
 
+    const {
+        signSchema,
+        attestSchema,
+    } = useAttestationClient();
+
     useEffect(() => {
-        if (typeof window === undefined) return;
         const sign = async () => {
-            if (typeof window === undefined) return;
-            const res = await signSchema(account.address + "_ETHBKK_SCHEMA");
+            const res = await signSchema("ETHBKK_SCHEMA_" + new Date().getTime());
             setSchemaId((res as any).schemaId);
         };
+        if (!account) return;
+
         sign();
-    }, []);
+    }, [account]);
 
     const handleSubmit = async (formData: FormData) => {
         if (typeof window === undefined) return;
@@ -41,6 +45,7 @@ const Merchant: FC = () => {
             merchantAddress,
             creatorAddress: formData.get("creatorAddress"),
             splitPercentage: formData.get("splitPercentage"),
+            productId: formData.get("productId"),
             merchId: uuidV4(),
             token: "USDC",
         };
