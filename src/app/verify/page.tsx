@@ -1,6 +1,6 @@
 'use client';
 import { WrapperCard } from "@/components/Card";
-import { retrieveAttestation } from "@/utils/attestationClient";
+import { useAttestationClient } from "@/hooks/useAttestationClient";
 import { Suspense, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useSearchParams } from 'next/navigation'
@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation'
 const VerifyPage = () => {
     const acc = useAccount();
     const searchParams = useSearchParams();
+    const { retrieveAttestation } = useAttestationClient();
 
     const schemaId = searchParams.get('schemaId');
 
