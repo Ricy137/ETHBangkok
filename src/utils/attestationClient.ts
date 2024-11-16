@@ -1,14 +1,15 @@
 import {
-    SignProtocolClient,
     SpMode,
-    EvmChains
+    EvmChains,
+    SignProtocolClient,
 } from "@ethsign/sp-sdk";
-import {FakeMerchant, schema} from "@/utils/constants";
+import { schema } from "@/utils/constants";
+
 
 const client = new SignProtocolClient(
     SpMode.OnChain,
     {
-        account: FakeMerchant,
+        account: undefined,
         chain: EvmChains.baseSepolia,
     }
 );
@@ -22,15 +23,14 @@ export const signSchema = async (schemaName: string) => {
 
 export const attestSchema = async (
     schemaId: string,
-    contractDetails: string,
+    payload: string,
     signer: string
 ) => {
-    const res = await client.createAttestation({
+    const data = JSON.parse(payload);
+
+    return await client.createAttestation({
         schemaId: schemaId,
-        data: {
-            contractDetails,
-            signer
-        },
+        data,
         indexingValue: signer.toLowerCase()
     });
 }

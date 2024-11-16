@@ -26,7 +26,7 @@ export const schema: SchemaItem[] = [
         name: "merchId", type: "string"
     },
     {
-        name: "tokens", type: "string"
+        name: "token", type: "string"
     }
 ]
 

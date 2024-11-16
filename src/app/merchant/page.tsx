@@ -3,37 +3,40 @@ import {useEffect, FC, useState} from "react";
 import {signSchema} from "@/utils/attestationClient";
 import Input from "@/components/Input";
 import {WrapperCard} from "@/components/Card";
-import {FakeMerchant, FakeReferrer, schemaWithLabels} from "@/utils/constants";
+import {schemaWithLabels} from "@/utils/constants";
 import Button from "@/components/Button";
 import {attestSchema} from "@/utils/attestationClient";
 import { v4 as uuidV4 } from "uuid";
+import { useAccount } from "wagmi";
+import { Hex } from "viem";
 
 const Merchant: FC = () => {
     const [schemaId, setSchemaId] = useState<string>("");
+    const account = useAccount();
 
     useEffect(() => {
         const sign = async () => {
-            const res = await signSchema("Merchant");
+            const res = await signSchema(account.address + "_ETHBKK_SCHEMA");
             setSchemaId(res.schemaId);
         }
-        // sign();
+        sign();
     }, []);
 
     const handleSubmit = async (formData: FormData) => {
-        console.log(formData);
+        const merchantAddress = formData.get("merchantAddress");
+        const payload = {
+            amount: formData.get("amount"),
+            merchantAddress,
+            creatorAddress: formData.get("creatorAddress"),
+            splitPercentage: formData.get("splitPercentage"),
+            merchId: uuidV4(),
+            token: "USDC",
+            }
         const res = await attestSchema(
             schemaId,
-            JSON.stringify({
-                merchantAddress: formData.get("merchantAddress"),
-                creatorAddress: formData.get("creatorAddress"),
-                splitPercentage: formData.get("splitPercentage"),
-                merchId: uuidV4(),
-                tokens: formData.get("tokens"),
-                amount: formData.get("amount")
-            }),
-            formData.get("merchantAddress")
+            JSON.stringify(payload),
+            merchantAddress as string
         );
-        console.log(res);
     }
 
     return (
@@ -43,9 +46,9 @@ const Merchant: FC = () => {
             </h1>
             <WrapperCard>
                 <form action={handleSubmit}>
-                    {merchantForm}
-                    <Button>
-                        Attest
+                    {merchantForm(account.address)}
+                    <Button type={"submit"}>
+                        Submit
                     </Button>
                 </form>
             </WrapperCard>
@@ -53,14 +56,25 @@ const Merchant: FC = () => {
     );
 };
 
-const merchantForm = schemaWithLabels.map((field) =>
-        field.name !== "merchId" && (
-            <div key={field.name} className="w-full h-full flex flex-col py-[8px]">
-                <label htmlFor={field.name}>{field.label}</label>
-                <Input type={field.type} name={field.name}
-                       value={field.name === "merchantAddress" ? FakeMerchant.address : undefined}/>
+const merchantForm = (address: Hex | undefined) => {
+    return schemaWithLabels.map((field) =>
+        field.name !== "merchId" && field.name !== "token" && (
+            <div key={field.name} className={`w-full h-full py-[8px] ${field.name === "token" ? "none" : "flex flex-col"}`}>
+                <label htmlFor={field.name}>
+                    {field.label}
+                </label>
+                <Input
+                    type={field.type}
+                    name={field.name}
+                    value={
+                        field.name === "merchantAddress"
+                            ? address
+                            : undefined
+                    }
+                />
             </div>
         )
 )
+}
 
 export default Merchant;

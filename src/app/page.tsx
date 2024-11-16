@@ -17,7 +17,7 @@ import {
 
 export default function App() {
     return (
-        <div className="flex flex-col max-h-screen font-sans dark:bg-background dark:text-white bg-white text-black">
+        <div className="flex flex-col min-h-screen font-sans dark:bg-background dark:text-white bg-white text-black">
             <header className="pt-4 pr-4">
                 <div className="flex justify-end">
                     <div className="wallet-container">
