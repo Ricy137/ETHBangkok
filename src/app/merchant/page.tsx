@@ -25,19 +25,19 @@ const Merchant: FC = () => {
 
     const {signSchema, attestSchema} = useAttestationClient();
 
-    useEffect(() => {
-        const sign = async () => {
-            // TODO: Test
-            // const res = await signSchema(
-            //     "ETHBKK_SCHEMA_" + new Date().getTime()
-            // );
-            // setSchemaId((res as any).schemaId);
-            setSchemaId("testSchemaId");
-        };
-        if (!account) return;
+    // useEffect(() => {
+    //     const sign = async () => {
+    //         // TODO: Test
+    //         // const res = await signSchema(
+    //         //     "ETHBKK_SCHEMA_" + new Date().getTime()
+    //         // );
+    //         // setSchemaId((res as any).schemaId);
+    //         setSchemaId("testSchemaId");
+    //     };
+    //     if (!account) return;
 
-        sign();
-    }, [account]);
+    //     sign();
+    // }, [account]);
 
     const handleSubmit = async (formData: FormData) => {
         if (typeof window === undefined) return;
