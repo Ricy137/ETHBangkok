@@ -10,7 +10,6 @@ const getClient = () => {
 };
 
 export const signSchema = async (schemaName: string) => {
-    // if(window===)
     return await getClient()?.createSchema({
         name: schemaName,
         data: schema,
@@ -23,6 +22,7 @@ export const attestSchema = async (
     signer: string
 ) => {
     const data = JSON.parse(payload);
+    debugger;
 
     return await getClient()?.createAttestation({
         schemaId: schemaId,

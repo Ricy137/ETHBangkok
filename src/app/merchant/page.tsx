@@ -11,12 +11,17 @@ import {schemaIdAtom, manageFormAtom} from "@/services/management";
 import {v4 as uuidV4} from "uuid";
 import {useAccount} from "wagmi";
 import {Hex} from "viem";
+import {useModal} from "@/components/Modal";
+import ResultModal from "./resultModal";
 
 const Merchant: FC = () => {
     const [schemaId, setSchemaId] = useAtom(schemaIdAtom);
     const setManageFormData = useSetAtom(manageFormAtom);
-    if (typeof window === undefined) return <></>;
     const account = useAccount();
+    const {showModal} = useModal({
+        title: "Signed the contract successfully",
+        content: <ResultModal />,
+    });
 
     useEffect(() => {
         if (typeof window === undefined) return;
@@ -29,7 +34,7 @@ const Merchant: FC = () => {
     }, []);
 
     const handleSubmit = async (formData: FormData) => {
-        if (window === undefined) return;
+        if (typeof window === undefined) return;
         const merchantAddress = formData.get("merchantAddress");
         const payload = {
             amount: formData.get("amount"),
@@ -39,17 +44,19 @@ const Merchant: FC = () => {
             merchId: uuidV4(),
             token: "USDC",
         };
-        // setManageFormData({
-        //     merchantAddr: merchantAddress,
-        //     referralAddr: formData.get("creatorAddress"),
-        //     totalAmount: formData.get("amount"),
-        //     percent: formData.get("splitPercentage"),
-        // });
+        //TODO: Not a good practice for Modal
+        setManageFormData({
+            merchantAddr: merchantAddress as string,
+            referralAddr: formData.get("creatorAddress") as string,
+            totalAmount: formData.get("amount") as string,
+            percent: formData.get("splitPercentage") as string,
+        });
         const res = await attestSchema(
             schemaId,
             JSON.stringify(payload),
             merchantAddress as string
         );
+        showModal();
     };
 
     return (
