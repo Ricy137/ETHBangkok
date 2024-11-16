@@ -12,7 +12,7 @@ import {useAccount} from "wagmi";
 import {Hex} from "viem";
 import {useModal} from "@/components/Modal";
 import ResultModal from "./ResultModal";
-import { sign } from "crypto";
+import {sign} from "crypto";
 
 const Merchant: FC = () => {
     const [schemaId, setSchemaId] = useAtom(schemaIdAtom);
@@ -61,8 +61,7 @@ const Merchant: FC = () => {
         });
         // TODO: Test
         const res = await attestSchema(
-            // schemaId,
-            JSON.stringify(payload),
+            data,
             merchantAddress as string
         );
         showModal();
