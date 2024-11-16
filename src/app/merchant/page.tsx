@@ -60,11 +60,11 @@ const Merchant: FC = () => {
             percent: formData.get("splitPercentage") as string,
         });
         // TODO: Test
-        // const res = await attestSchema(
-        //     schemaId,
-        //     JSON.stringify(payload),
-        //     merchantAddress as string
-        // );
+        const res = await attestSchema(
+            // schemaId,
+            JSON.stringify(payload),
+            merchantAddress as string
+        );
         showModal();
     };
 
