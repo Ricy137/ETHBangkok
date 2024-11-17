@@ -56,6 +56,6 @@ Influencer Ownership:
 Receive payments automatically without intermediaries.
 
 
-##Benefits:
+## Benefits:
 
 Rewards (Tokens & Crypto) and property rights.
