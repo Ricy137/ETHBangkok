@@ -1,0 +1,61 @@
+ETH Global Project Script
+
+Project Name: TOKREATORS 
+Project Cqtegory: Audio/Video
+
+
+Introduction
+it´s a dapp that consist in onchain between coinbase and sign protocol using referal  base rewards system and payments. 
+
+Problems to solve: 
+
+Current onchain payments methods are excellent; however only payments are not enough to built a trust the financial system. Then we introduce  sign protocol  trying  to achieve a simple version of the trust financial system with payment methods of Coinbase.
+
+Besides, by bring referral reward systems on chain would make the money flow of the system more transparent. 
+
+Objetives & Estrategy:
+Traceability: Sign protocol creates onchain agreements; so in the future if the on chain payments occurred conflicts, it can be presented as a proof to settle disrupt. 
+Referal System:
+For each microtransactions, the money would go to merchants and referrer automatically on chain with the payments methods provided by coinbase. 
+Influencer Ownership:
+Receive payments automatically without intermediaries.
+
+Benefits:
+Rewards (Tokens & Crypto) and property rights.
+
+Coinbase Protocol Prizes:
+
+🛒 Checkout component pool prize ⸺ $500:
+
+Use the OnchainKit Checkout component to take advantage of fast, cheap payment rails for your apps.
+Qualification Requirements
+- Must use the Checkout component in a meaningful way - Must be a working app
+
+Tool 1: Referal system transaction (calls instead contracts); that allow us to made 2 simultaneously transactions (Creator and Merchant),
+and only sign once for this 2 different addresses. Fast and easy interactions in one movement.
+
+💫 OnchainKit Pool Prize ⸺ $1,000:
+
+Use OnchainKit in any place in your app that makes sense. Where could you benefit from simple, easy-to-integrate components that give 
+your users access to wallet funding, checkout with crypto, and transaction triggering?
+
+Qualification Requirements
+- Must use at least three OnchainKit components 
+- Must be a meaningful integration visible to users and part of the general flow 
+- Must be a working app
+
+Tool 2: Onchainkit (Checkout, wallet, transaction & swap componets) the fan are able to swap in the same app in case they do not have the required crypto.
+They use the checkout to complete the tranaction and all in the same application in a few clicks.
+
+💬 Best Developer Feedback ⸺ $500
+
+Improve our tools and documentation by submitting valuable feedback or PRs. The best submission will receive a $500 prize.
+
+Qualification Requirements
+- Submit a project in one of the other tracks  - Provide feedback in a Google form along with your project.
+
+Describe the solution you'd like
+The developer experience of <Checkout /> and <Swap /> components are good and they both provide compatibility for more advanced operations. However, the two components only work on the mainnet and it would provide a better DX if there's an method to test these two components without costing real money.
+
+Describe alternatives you've considered.
+Adding testnet support for Checkout /> and <Swap /> components.
